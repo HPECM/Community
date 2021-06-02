@@ -21,7 +21,7 @@ public class CORSModule : IHttpModule
         var originConfigs = ConfigurationManager.AppSettings["allowedOrigins"];
 
 
-        this.origins = (originConfigs ?? "").Split(',').Select(o => o.Trim()).ToArray();
+        this.origins = (originConfigs ?? "").Split(',').Select(o => o.Trim()).Where(o => !string.IsNullOrEmpty(o)).ToArray();
 
         context.PreSendRequestHeaders += delegate
         {
